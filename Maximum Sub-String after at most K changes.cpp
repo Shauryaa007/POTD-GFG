@@ -3,30 +3,42 @@
 using namespace std;
 
 // } Driver Code Ends
-
 class Solution {
-    int vecmax(vector<int> &a) {
-        int res = a[0];
-        for (int i = 1; i < a.size(); i++)
-            res = max(res, a[i]);
-        return res;
-    }
 	public:
 		int characterReplacement(string s, int k){
-            // Code here
-            vector<int> dp(26, 0);
-            int i = 0, j = 0, res = 0;
-            int tot = 0, n = s.size();
-            while (j < n) {
-                dp[s[j] - 'A']++;
-                if (j - i + 1 - vecmax(dp) > k) {
-                    dp[s[i] - 'A']--;
-                    i++;
-                }
-                res = max(res, j - i + 1);
-                j++;
-            }
-            return res;
+		    vector<int>v(26,0);
+		    
+		    int pre=0;
+		    int ans=0;
+		    for(int i=0;i<s.length();i++)
+		    {
+		        v[s[i]-'A' ]++;
+		        int curr=solution(v,k);
+		        if(curr==-1)
+		        {
+		             v[s[pre++]-'A']--;
+		        }
+		        else
+		        {
+		            ans=max(ans,curr);
+		        }
+		    }
+		    
+		    return ans;
+		}
+		
+		int solution(vector<int>v,int k)
+		{int same=0,sum=0;
+		    for(int i=0;i<v.size();i++)
+		    {
+		        sum+=v[i];
+		        if(v[i]>same) same=v[i];
+		    }
+		    
+		    int diff=sum-same;
+		    
+		    if(diff<=k) return same+diff;
+		    else return -1; 
 		}
 
 };
