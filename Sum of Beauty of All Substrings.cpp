@@ -24,7 +24,7 @@ class Solution {
     int findBeauty(vector<int> fre) {
         int mx=INT_MIN,mn=INT_MAX;
         for(int f : fre) {
-            if(f==0) continue;
+            if(f==0) continue; 
             mx = max(mx,f);
             mn = min(mn,f);
         }
